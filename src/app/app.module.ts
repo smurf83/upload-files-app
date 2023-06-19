@@ -33,9 +33,10 @@ import { LoginComponent } from './login/login.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { OnlyOneErrorPipe } from './only-one-error.pipe';
 import { CreateFileComponent } from './create-file/create-file.component';
+import { CreateFileStep1Component } from './create-file/create-file-step1/create-file-step1/create-file-step1.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, FilesCardListComponent, LoginComponent, FileUploadComponent, OnlyOneErrorPipe, CreateFileComponent],
+  declarations: [AppComponent, HomeComponent, FilesCardListComponent, LoginComponent, FileUploadComponent, OnlyOneErrorPipe, CreateFileComponent, CreateFileStep1Component],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
