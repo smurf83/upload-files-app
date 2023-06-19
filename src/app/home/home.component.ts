@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { FilesService } from '../files.service';
 
 @Component({
@@ -17,6 +15,28 @@ export class HomeComponent implements OnInit {
   constructor(private filesService: FilesService) {}
 
   ngOnInit(): void {
-    const files$ = [];
+    const files$ = this.filesService.findAllFiles();
+
+    this.photoFiles$ = files$.pipe(
+      map((files) =>
+        files.filter((file) => {
+          const extensions = ['.jpg', '.png'];
+          return extensions.some((ext) =>
+            file.name.toLowerCase().includes(ext)
+          );
+        })
+      )
+    );
+
+    this.documentFiles$ = files$.pipe(
+      map((files) =>
+        files.filter((file) => {
+          const extensions = ['.txt', '.pdf', '.doc', '.docx', '.rtf'];
+          return extensions.some((ext) =>
+            file.name.toLowerCase().includes(ext)
+          );
+        })
+      )
+    );
   }
 }

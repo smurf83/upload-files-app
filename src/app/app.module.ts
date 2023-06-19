@@ -29,9 +29,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FilesCardListComponent } from './files-card-list/files-card-list.component';
+import { LoginComponent } from './login/login.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { OnlyOneErrorPipe } from './only-one-error.pipe';
+import { CreateFileComponent } from './create-file/create-file.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, FilesCardListComponent],
+  declarations: [AppComponent, HomeComponent, FilesCardListComponent, LoginComponent, FileUploadComponent, OnlyOneErrorPipe, CreateFileComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
