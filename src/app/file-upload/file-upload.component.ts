@@ -1,50 +1,46 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { catchError, finalize } from 'rxjs/operators';
-import { of } from 'rxjs';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator,
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FilesService } from '../files.service';
 
 @Component({
-  selector: 'file-upload',
-  templateUrl: 'file-upload.component.html',
-  styleUrls: ['file-upload.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: FileUploadComponent,
-    },
-    {
-      provide: NG_VALIDATORS,
-      multi: true,
-      useExisting: FileUploadComponent,
-    },
-  ],
+  selector: 'app-file-upload',
+  templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.css'],
 })
-export class FileUploadComponent implements ControlValueAccessor, Validator {
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+export class FileUploadComponent {
+  fileName = '';
+  title = '';
+  description = '';
+  uploadError = '';
+  selectedFile: File | null = null;
+
+  constructor(private filesService: FilesService) {}
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+      this.selectedFile = file;
+    }
   }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
-  }
-  validate(control: AbstractControl<any, any>): ValidationErrors | null {
-    throw new Error('Method not implemented.');
-  }
-  registerOnValidatorChange?(fn: () => void): void {
-    throw new Error('Method not implemented.');
+
+  onSubmit() {
+    if (this.selectedFile) {
+      this.filesService
+        .createFile(this.selectedFile, this.title, this.description)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.fileName = '';
+            this.title = '';
+            this.description = '';
+            this.uploadError = '';
+            this.selectedFile = null;
+          },
+          error: (err) => {
+            this.uploadError = err.error.message;
+          },
+        });
+    }
   }
 }

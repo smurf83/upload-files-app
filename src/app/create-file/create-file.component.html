@@ -1,1 +1,31 @@
-<p>create-file works!</p>
+<div class="create-course-panel data-form">
+  <h2 class="title">Add New File</h2>
+
+  <mat-horizontal-stepper
+    [linear]="true"
+    class="mat-elevation-z5"
+    labelPosition="bottom"
+  >
+    <mat-step [stepControl]="step1.form">
+      <ng-template matStepLabel="Choose File Type"></ng-template>
+
+      <app-create-file-step1 #step1></app-create-file-step1>
+
+      <div class="stepper-buttons">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <app-create-file-step2></app-create-file-step2>
+      <ng-template matStepLabel="Choose File"></ng-template>
+      <div class="stepper-buttons">
+        <button mat-raised-button color="primary" matStepperPrevious>
+          Back
+        </button>
+        <button mat-raised-button color="primary" matStepperNext>Submit</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<div class="scrolling-space"></div>

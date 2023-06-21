@@ -10,21 +10,26 @@
     <input matInput [disabled]="true" [value]="fileName" />
   </mat-form-field>
 
+  <mat-form-field class="input-field">
+    <input matInput placeholder="Title" [(ngModel)]="title" />
+  </mat-form-field>
+
+  <mat-form-field class="input-field">
+    <textarea
+      matInput
+      placeholder="Description"
+      [(ngModel)]="description"
+    ></textarea>
+  </mat-form-field>
+
   <button
     mat-mini-fab
     color="primary"
     class="upload-btn"
-    (click)="onClick(fileUpload)"
-    [disabled]="disabled"
+    (click)="fileUpload.click()"
   >
     <mat-icon>attach_file</mat-icon>
   </button>
-</div>
 
-<mat-progress-bar
-  class="progress-bar"
-  mode="determinate"
-  *ngIf="uploadProgress"
-  [value]="uploadProgress"
->
-</mat-progress-bar>
+  <p class="error-message" *ngIf="uploadError">{{ uploadError }}</p>
+</div>

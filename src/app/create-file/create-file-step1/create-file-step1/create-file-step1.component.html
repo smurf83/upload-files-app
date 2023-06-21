@@ -1,1 +1,6 @@
-<p>create-file-step1 works!</p>
+<div [formGroup]="form">
+  <mat-radio-group formControlName="selectedOption">
+    <mat-radio-button value="photo">Photo</mat-radio-button>
+    <mat-radio-button value="document">Document</mat-radio-button>
+  </mat-radio-group>
+</div>

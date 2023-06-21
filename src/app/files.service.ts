@@ -8,6 +8,15 @@ import { Observable, of } from 'rxjs';
 export class FilesService {
   constructor(private httpClient: HttpClient) {}
 
+  createFile(file: File, title: string, description: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('title', title);
+    formData.append('description', description);
+
+    return this.httpClient.post('http://localhost:8080/documents', formData);
+  }
+
   findAllFiles(): Observable<File[]> {
     // Mock files
     const mockFile1 = new File(['Photo'], 'mockFile1.jpg');
