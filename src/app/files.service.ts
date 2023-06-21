@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { UploadFile } from './file-upload/file-upload.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilesService {
+  selectedUpload: UploadFile | null = null;
   constructor(private httpClient: HttpClient) {}
 
   createFile(file: File, title: string, description: string): Observable<any> {

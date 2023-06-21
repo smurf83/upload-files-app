@@ -16,4 +16,25 @@
   .progress-bar {
     margin-bottom: 10px;
   }
+
+  .upload-panel {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+  }
+  
+  .file-upload-card {
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 1em;
+  }
+  
   

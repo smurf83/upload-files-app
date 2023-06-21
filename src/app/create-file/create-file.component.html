@@ -22,7 +22,9 @@
         <button mat-raised-button color="primary" matStepperPrevious>
           Back
         </button>
-        <button mat-raised-button color="primary" matStepperNext>Submit</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()">
+          Submit
+        </button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

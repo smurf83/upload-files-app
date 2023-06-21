@@ -1,7 +1,7 @@
 <input
   type="file"
   class="file-input"
-  (change)="onFileSelected($event)"
+  (change)="handleFileInput($event)"
   #fileUpload
 />
 
@@ -11,7 +11,13 @@
   </mat-form-field>
 
   <mat-form-field class="input-field">
-    <input matInput placeholder="Title" [(ngModel)]="title" />
+    <input
+      matInput
+      placeholder="Title"
+      required
+      [(ngModel)]="title"
+      (change)="setUploadData()"
+    />
   </mat-form-field>
 
   <mat-form-field class="input-field">
@@ -19,6 +25,7 @@
       matInput
       placeholder="Description"
       [(ngModel)]="description"
+      (change)="setUploadData()"
     ></textarea>
   </mat-form-field>
 

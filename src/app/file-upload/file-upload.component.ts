@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { FilesService } from '../files.service';
 
+export interface UploadFile {
+  file: File;
+  title: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -15,7 +21,7 @@ export class FileUploadComponent {
 
   constructor(private filesService: FilesService) {}
 
-  onFileSelected(event: any) {
+  handleFileInput(event: any) {
     const file: File = event.target.files[0];
 
     if (file) {
@@ -24,23 +30,15 @@ export class FileUploadComponent {
     }
   }
 
-  onSubmit() {
+  setUploadData() {
     if (this.selectedFile) {
-      this.filesService
-        .createFile(this.selectedFile, this.title, this.description)
-        .subscribe({
-          next: (res) => {
-            console.log(res);
-            this.fileName = '';
-            this.title = '';
-            this.description = '';
-            this.uploadError = '';
-            this.selectedFile = null;
-          },
-          error: (err) => {
-            this.uploadError = err.error.message;
-          },
-        });
+      this.filesService.selectedUpload = {
+        file: this.selectedFile,
+        title: this.title,
+        description: this.description,
+      };
+    } else {
+      this.uploadError = 'No file selected for upload.';
     }
   }
 }
