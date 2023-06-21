@@ -1,42 +1,47 @@
-<input
-  type="file"
-  class="file-input"
-  (change)="handleFileInput($event)"
-  #fileUpload
-/>
+<form [formGroup]="uploadForm" (ngSubmit)="uploadForm.valid && setUploadData()">
+  <input
+    type="file"
+    class="file-input"
+    (change)="handleFileInput($event)"
+    #fileUpload
+  />
 
-<div class="file-upload">
-  <mat-form-field>
-    <input matInput [disabled]="true" [value]="fileName" />
-  </mat-form-field>
+  <div class="file-upload">
+    <mat-form-field>
+      <input matInput [disabled]="true" [value]="fileName" />
+    </mat-form-field>
 
-  <mat-form-field class="input-field">
-    <input
-      matInput
-      placeholder="Title"
-      required
-      [(ngModel)]="title"
-      (change)="setUploadData()"
-    />
-  </mat-form-field>
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Title" formControlName="title" />
+    </mat-form-field>
 
-  <mat-form-field class="input-field">
-    <textarea
-      matInput
-      placeholder="Description"
-      [(ngModel)]="description"
-      (change)="setUploadData()"
-    ></textarea>
-  </mat-form-field>
+    <mat-form-field class="input-field">
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
 
-  <button
-    mat-mini-fab
-    color="primary"
-    class="upload-btn"
-    (click)="fileUpload.click()"
-  >
-    <mat-icon>attach_file</mat-icon>
-  </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      class="upload-btn"
+      type="button"
+      (click)="fileUpload.click()"
+    >
+      <mat-icon>attach_file</mat-icon>
+    </button>
 
-  <p class="error-message" *ngIf="uploadError">{{ uploadError }}</p>
-</div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!uploadForm.valid"
+    >
+      Upload
+    </button>
+
+    <p class="error-message" *ngIf="uploadError">{{ uploadError }}</p>
+  </div>
+</form>

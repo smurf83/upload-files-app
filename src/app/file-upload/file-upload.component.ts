@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { FilesService } from '../files.service';
 
 export interface UploadFile {
@@ -12,14 +18,20 @@ export interface UploadFile {
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css'],
 })
-export class FileUploadComponent {
+export class FileUploadComponent implements OnInit {
+  uploadForm!: UntypedFormGroup;
   fileName = '';
-  title = '';
-  description = '';
-  uploadError = '';
   selectedFile: File | null = null;
+  uploadError = '';
 
   constructor(private filesService: FilesService) {}
+
+  ngOnInit() {
+    this.uploadForm = new UntypedFormGroup({
+      title: new FormControl(null, Validators.required),
+      description: new FormControl(null),
+    });
+  }
 
   handleFileInput(event: any) {
     const file: File = event.target.files[0];
@@ -34,8 +46,8 @@ export class FileUploadComponent {
     if (this.selectedFile) {
       this.filesService.selectedUpload = {
         file: this.selectedFile,
-        title: this.title,
-        description: this.description,
+        title: this.uploadForm.value.title,
+        description: this.uploadForm.value.description,
       };
     } else {
       this.uploadError = 'No file selected for upload.';
